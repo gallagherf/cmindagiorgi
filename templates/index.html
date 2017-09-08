@@ -1,0 +1,283 @@
+<!doctype html>
+    <style>
+    body {
+        width: 90%;
+        margin: 0 auto;}
+
+    th, td {
+        border: 1px solid #0088dd;
+       padding: 7px 15px;
+        text-align: center;}
+
+    p {
+        padding: 10px;
+        border: 2px solid #DA4141;}
+
+    </style>
+
+    <head>
+        <title>გიორგი</title>
+    </head>
+
+    <body>
+        <div style="float:left; width:45%;">
+        <h1> წმინდა გიორგი</h1>
+
+        <p> Hi. This is the first iteration of a Georgian morphological
+        analysis... dictionary... thingy that I've made for chopping up
+        Georgian verbs. All definitions come from the Rayfield
+        Comprehensive Georgian-English Dictionary. Although the original purpose of this
+        project was to create a resource for quickly analyzing Georgian verbs in the
+        wild with minimum fuss, I'm hoping to add more entries for other parts of speech in the future. You can use the box
+        below to look up a verb.
+        </p>
+
+
+       <h2> Please enter a verb.</h2>
+
+        <form action="/dictionary" method= "POST">
+            <input type="text" name="verb">
+            <input type="submit" name="submit">
+        </form>
+        <br>
+
+{% if word %}
+    You entered: {{ gverb }} <br><br>
+    <table>
+    <tr>
+        {% if word['preverb'] != '' %}
+        <td>Preverb</td>
+        {% endif %}
+
+        {% if word['agrpref'] != ''%}
+        <td>Agr. Pref</td>
+        {% endif %}
+
+        {% if word['version'] != '' %}
+        <td>Version</td>
+        {% endif %}
+
+        {% if word['hseries'] != ''%}
+        <td>H-marker</td>
+        {% endif %}
+
+        {% if word['root'] != '' %}
+        <td>Root</td>
+        {% endif %}
+
+        {% if word['doniani'] != '' %}
+        <td>Inchoative</td>
+        {% endif %}
+
+        {% if word['sf'] != '' %}
+        <td>Stem Formant</td>
+        {% endif %}
+
+        {% if word['participle'] != '' %}
+        <td> Participle </td>
+        {% endif %}
+
+        {% if word['od'] != '' %}
+        <td>od</td>
+        {% endif %}
+
+        {% if word['sm'] != '' %}
+        <td>sm</td>
+        {% endif %}
+
+        {% if word['agrsuf'] != '' %}
+        <td>Agr. Suf</td>
+        {% endif %}
+
+        {% if word['pluralt'] != '' %}
+        <td>2nd Plural</td>
+        {% endif %}
+
+    </tr>
+    <tr>
+        {% if word['preverb'] != '' %}
+        <td> {{ word['preverb'] }} </td>
+        {% endif %}
+
+        {% if word['agrpref'] != '' %}
+        <td> {{ word['agrpref'] }} </td>
+        {% endif %}
+
+        {% if word['version'] != '' %}
+        <td> {{ word['version'] }} </td>
+        {% endif %}
+
+        {% if word['hseries'] %}
+        <td> {{ word['hseries'] }} </td>
+        {% endif %}
+
+        {% if word['root'] %}
+        <td> {{ word['root'] }} </td>
+        {% endif %}
+
+        {% if word['doniani'] %}
+        <td> {{ word['doniani'] }} </td>
+        {% endif %}
+
+        {% if word['sf'] %}
+        <td> {{ word['sf'] }} </td>
+        {% endif %}
+
+        {% if word['participle'] %}
+        <td> {{ word['participle'] }} </td>
+        {% endif %}
+
+        {% if word['od'] %}
+        <td> {{ word['od'] }} </td>
+        {% endif %}
+
+        {% if word['sm'] %}
+        <td> {{ word['sm'] }} </td>
+        {% endif %}
+
+        {% if word['agrsuf'] %}
+        <td> {{ word['agrsuf'] }} </td>
+        {% endif %}
+
+        {% if word['pluralt'] %}
+        <td> {{ word['pluralt'] }} </td>
+        {% endif %}
+    </tr>
+</table>
+
+{% endif %}
+
+        {% if error %}
+        {{ error }}
+        {% endif %}
+
+{% if matches %}
+{% for match in matches %}
+    <p>
+    <i> {{ match['definition'] }} </i> <br>
+    Aorist: {{ match['aorist'] }}<br>
+    Future: {{ match['future'] }}<br>
+    Perfect: {{ match['perfect'] }}
+    </p>
+{% endfor %}
+
+{% else %}
+    <p>
+    Definition: <br>
+    Aorist: <br>
+    Future: <br>
+    Perfect:
+    </p>
+{% endif %}
+
+           <p> If you don't have access to a Georgian keyboard, you can use these Latin
+alphabet equivalents. </p>
+
+        <table style="float:left; width:10%">
+            <tr><th>Mkhedruli</th><th>Latin</th></tr>
+            <tr><td>ა</td>  <td>a</td></tr>
+            <tr><td>ბ</td>  <td>b</td></tr>
+            <tr><td>გ</td>  <td>g</td></tr>
+            <tr><td>დ</td>  <td>d</td></tr>
+            <tr><td>ე</td>  <td>e</td></tr>
+            <tr><td>ვ</td>  <td>v</td></tr>
+            <tr><td>ზ</td>  <td>z</td></tr>
+            <tr><td>თ</td>  <td>T</td></tr>
+            <tr><td>ი</td>  <td>i</td></tr>
+            <tr><td>კ</td>  <td>k</td></tr>
+            <tr><td>ლ</td>  <td>l</td></tr>
+        </table>
+        <table style="float:left; width:10%">
+            <tr><th>Mkhedruli</th><th>Latin</th></tr>
+            <tr><td>მ</td>  <td>m</td></tr>
+            <tr><td>ნ</td>  <td>n</td></tr>
+            <tr><td>ო</td>  <td>o</td></tr>
+            <tr><td>პ</td>  <td>p</td></tr>
+            <tr><td>ჟ</td>  <td>Z</td></tr>
+            <tr><td>რ</td>  <td>r</td></tr>
+            <tr><td>ს</td>  <td>s</td></tr>
+            <tr><td>ტ</td>  <td>t</td></tr>
+            <tr><td>უ</td>  <td>u</td></tr>
+            <tr><td>ფ</td>  <td>P</td></tr>
+            <tr><td>ქ</td>  <td>K</td></tr>
+        </table>
+        <table style="float:left; width:10%">
+            <tr><th>Mkhedruli</th><th>Latin</th></tr>
+            <tr><td>ღ</td>  <td>G</td></tr>
+            <tr><td>ყ</td>  <td>q</td></tr>
+            <tr><td>შ</td>  <td>S</td></tr>
+            <tr><td>ჩ</td>  <td>X</td></tr>
+            <tr><td>ც</td>  <td>C</td></tr>
+            <tr><td>ძ</td>  <td>j</td></tr>
+            <tr><td>წ</td>  <td>c</td></tr>
+            <tr><td>ჭ</td>  <td>x</td></tr>
+            <tr><td>ხ</td>  <td>H</td></tr>
+            <tr><td>ჯ</td>  <td>J</td></tr>
+            <tr><td>ჰ</td>  <td>h</td></tr>
+        </table>
+
+        </div>
+
+
+
+
+    <div style="float:right; width:45%">
+
+        <img src="static/georgeanddragon.jpg" alt="A famous person who was good at
+        chopping up dragons" style="width:40%;">
+
+        <p> <b> About: </b> Currently this dictionary contains about 7,000 verb roots and
+        30,000 entries. When a verb is entered, the analyzer
+        isolates the root and labels other morphology to the best of its
+        ability, then returns a set of possible definitions from Rayfield's dictionary.
+
+        Terminology is mostly borrowed from PJ Hillery's excellent overview of Georgian
+        grammar, which can be found online <a
+            href="https://www.richw.org/armazi/georgian/"> here</a>.
+        </p>
+
+
+        <p> <b> Capabilities: </b> Georgian verb morphology can be complex, but
+        if the root is in the dictionary it should be available to the
+        analyzer, even if the form is irregular. For example, entering ვთქვით
+        <i>'we said'</i> or გიტყვი <i> 'I will say to you' </i> returns
+        the same entry in spite of the irregularity in the roots.
+        Agreement for person and number occasionally confuse the analyzer, but
+        only occasionally.
+        </p>
+
+        <p> <b> Incapabilities: </b>
+        Currently there are no dictionary entries for verbal nouns
+        (<i>masdars</i>)
+        yet, although it will often return the correct root if you
+        enter one. It does not, however, recognize when a form is ungrammatical. Non-existent
+        forms like *გადავთარგმნის are treated the same as any other verb,
+        although this could change fairly soon.
+        The dictionary is very much a work in
+        progress, and I'll be adding more entries as time goes by. Because the
+        dictionary entries were all created automatically, there are occasional
+        errors -- mislabelings, empty definitions, and typos from the original
+        dictionary. Fortunately, most errors are systematic, so
+        if you run across one there's a good chance that I can use it to
+        correct a bunch of other ones once I know they exist. If you have any questions, comments or
+        ideas, or find a bug, please get in touch with me at gflinn[at]uchicago[.]edu.
+        </p>
+
+        <p> <b> Future: </b> 30,000 verbs is only scratching the surface of the
+        Rayfield dictionary. This is the first iteration, but over the rest of
+        the summer (it's 2017 now) the system will be undergoing plenty of
+        refinement. Eventually I hope this can be a general resource for linguists working on
+        Georgian -- with a dictionary of fully analyzed morphology, it won't be
+        hard to lookup by morpheme type. If you want to, say, see a list of
+        all of the verbs that have ი as a version vowel and ავ as a stem
+        formant (there are currently 525), then the next step is to provide
+        that.
+        </p>
+
+
+
+
+    </div>
+    </body>
+</html>
+
